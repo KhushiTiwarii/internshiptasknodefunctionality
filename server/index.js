@@ -138,7 +138,6 @@
 //   console.log(`Server running on port ${port}`);
 // });
 
-
 import express from 'express';
 import connectDB from './config.js';
 import userRoutes from './routes/userRoutes.js';
@@ -150,6 +149,11 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
+
+// Status route
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'API is working on port 5000' });
+});
 
 app.use('/api/users', userRoutes);
 app.use('/api/tasks', taskRoutes);
