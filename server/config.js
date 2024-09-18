@@ -1,8 +1,17 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://tiwarikhushi907:KhushiTiwari2004@cluster0.yeceb.mongodb.net/', {
+    const uri = process.env.MONGO_URI;
+    if (!uri) {
+      throw new Error('MongoDB URI is not defined in environment variables');
+    }
+    
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
